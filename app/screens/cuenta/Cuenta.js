@@ -4,6 +4,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 
+import Loading from "../../components/Loading"
 import UsuarioInvitado from "./UsuarioInvitado";
 import UsuarioLoggeado from "./UsuarioLoggeado";
 
@@ -13,12 +14,12 @@ export default function Cuenta() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((user) =>{
       !user ? setLogin(false) : setLogin(true);
-      console.log(user);
+     
      
     })
   }, [])
 
-  if(login === null) return <Text>Cargando...</Text>
+  if(login === null) return <Loading isVisible={true} text="Cargando..."/>
 
   return login ? <UsuarioLoggeado/> : <UsuarioInvitado/>;
 }
