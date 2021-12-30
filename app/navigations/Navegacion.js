@@ -12,7 +12,7 @@ import Negocios from "../screens/Negocios";
 import Favoritos from "../screens/Favoritos";
 import TopNegocios from "../screens/TopNegocios";
 import Busqueda from "../screens/Busqueda";
-import Cuenta from "../screens/Cuenta";
+import Cuenta from "../screens/cuenta/Cuenta";
 const Tab = createBottomTabNavigator();
 
 export default function Navegacion() {
