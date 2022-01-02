@@ -3,11 +3,15 @@ import { StyleSheet, View } from "react-native";
 import { Input, Icon, Button } from "react-native-elements";
 import { validateEmail } from "../../utils/validations";
 import { size, isEmpty } from "lodash";
+import firebase from "firebase/app";
+import {useNavigation} from "@react-navigation/native"
 
-export default function FormularioRegistro() {
+export default function FormularioRegistro(props) {
+  const { toastRef } = props;
   const [showPassword, setShowPassword] = useState(false);
   const [showRepeatPassword, setShowRepeatPassword] = useState(false);
-  const [formData, setformData] = useState(defaultFormValue);
+  const [formData, setformData] = useState(defaultFormValue());
+  const navigation = useNavigation();
 
   const onSubmit = () => {
     if (
@@ -15,9 +19,25 @@ export default function FormularioRegistro() {
       isEmpty(formData.password) ||
       isEmpty(formData.repeatPassword)
     ) {
-      console.log("Please enter data");
+      toastRef.current.show("Todos lo campos son obligatorios.");
+    } else if (!validateEmail(formData.email)) {
+      toastRef.current.show("El correo electrónico no es válido.");
+    } else if (formData.password !== formData.repeatPassword) {
+      toastRef.current.show("Las contraseñas tienen que ser iguales.");
+    } else if (size(formData.password) < 6) {
+      toastRef.current.show(
+        "Las contraseñas tienen que ser mayor a 6 caracteres"
+      );
     } else {
-      console.log("Ok");
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(formData.email, formData.password)
+        .then((response) => {
+          navigation.navigate("cuenta");
+        })
+        .catch(() => {
+          toastRef.current.show("El correo electrónico ya se encuentra registrado, intente con otro.");
+        });
     }
   };
 
