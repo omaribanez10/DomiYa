@@ -8,11 +8,6 @@ import TopNegociosStack from "./TopNegociosStack";
 import BusquedaStack from "./BusquedaStack";
 import CuentaStack from "./CuentaStack";
 
-import Negocios from "../screens/Negocios";
-import Favoritos from "../screens/Favoritos";
-import TopNegocios from "../screens/TopNegocios";
-import Busqueda from "../screens/Busqueda";
-import Cuenta from "../screens/cuenta/Cuenta";
 const Tab = createBottomTabNavigator();
 
 export default function Navegacion() {
@@ -28,28 +23,28 @@ export default function Navegacion() {
       >
         <Tab.Screen
           name="negocios"
-          component={Negocios}
+          component={NegociosStack}
           options={{ title: "Negocios" }}
         ></Tab.Screen>
 
         <Tab.Screen
           name="busqueda"
-          component={Busqueda}
+          component={BusquedaStack}
           options={{ title: "Búsqueda" }}
         ></Tab.Screen>
         <Tab.Screen
           name="favoritos"
-          component={Favoritos}
+          component={FavoritosStack}
           options={{ title: "Favoritos" }}
         ></Tab.Screen>
         <Tab.Screen
           name="top-negocios"
-          component={TopNegocios}
+          component={TopNegociosStack}
           options={{ title: "Top Negocios" }}
         ></Tab.Screen>
         <Tab.Screen
           name="cuenta"
-          component={Cuenta}
+          component={ CuentaStack}
           options={{ title: "Cuenta" }}
         ></Tab.Screen>
       </Tab.Navigator>
